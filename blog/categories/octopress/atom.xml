@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: octopress | mizchi.github.com]]></title>
+  <link href="http://mizchi.github.com/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://mizchi.github.com/"/>
+  <updated>2012-09-22T16:24:43+09:00</updated>
+  <id>http://mizchi.github.com/</id>
+  <author>
+    <name><![CDATA[mizchi]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress導入メモ]]></title>
+    <link href="http://mizchi.github.com/blog/2012/09/22/octopressdao-ru-memo/"/>
+    <updated>2012-09-22T15:25:00+09:00</updated>
+    <id>http://mizchi.github.com/blog/2012/09/22/octopressdao-ru-memo</id>
+    <content type="html"><![CDATA[<p>基本的には Deploying to Github Pages - Octopress http://octopress.org/docs/deploying/github/ を参考にしつつ</p>
+
+<h1>Octopress</h1>
+
+<p>Jeykilをバックエンドに静的ページを動的に生成するブログエンジン。なにをいってるかわかんねーだろーがry</p>
+
+<p>rakeコマンドで記事生成したり、erbでテンプレートを編集したりできる。要は生成部分は動的だけど成果物は静的。</p>
+
+<p>プラグインもそこそこある。けどとくに制約がないので自分で書いたほうが早そう。</p>
+
+<p>Github PagesやHerokuにデプロイするのが常套っぽい。まあ静的ページだからどこでもいいんですけどね。</p>
+
+<h1>きっかけ</h1>
+
+<p>俺もだいぶJS書けるようになってきたのでJS書きまくれるブログでサブドメインはいいよなーとか考えてて</p>
+
+<p>そういえば mizchi.github.comでなんかできないかなーと調べてたらmarkdownならoctopressってのがあるらしい => やるか
+githubドメインよい。</p>
+
+<h2>installの準備</h2>
+
+<p>いきなり躓いた。ruby 1.9.3だと、RedCloth 4.9.3? のエラーかなんだかでbundle installできない。ぐぐるといろんなところでRuby 1.9.2使えと言われるのでおとなしく入れる(公式には1.9.3使えと書いてある…)</p>
+
+<p>僕ルビーストじゃないんで原因よくわからんす(会社でRails使ってるはずなんだけど)。とりあえずRVM使ってるんで1.9.2いれておく。</p>
+
+<p><code>sh
+rvm install 1.9.2
+</code></p>
+
+<p>rakeとzshが相性悪いのを少し修正
+<code>
+alias rake="noglob rake"
+compdef -d rake
+</code></p>
+
+<p>rakeの補完、ファイル読みに行ってるようで超遅い。auto-fuつかってると特に。</p>
+
+<h2>install</h2>
+
+<p>```sh
+git clone git://github.com/imathis/octopress.git
+cd octopress
+rvm use 1.9.2
+gem install bundler
+bundle install
+rake setup_github_pages</p>
+
+<h1>デプロイURLを求められるので ~.github.comを指定</h1>
+
+<p>rake generate
+rake deploy
+```</p>
+
+<h2>記事を更新</h2>
+
+<p><code>sh
+rake new_post['test']
+</code></p>
+
+<p>source/_posts/~~~.markdownが生成される。
+エディタでmarkdownで書く。ヘッダのハイフンで囲われてる領域はyamlでメタ情報生成用らしい</p>
+
+<h2>```</h2>
+
+<p>layout: post
+title: "Octopress導入メモ"
+date: 2012-09-22 15:25
+comments: true</p>
+
+<h2>categories: ruby octopress</h2>
+
+<h2>はじめに</h2>
+
+<p>てｓｔ</p>
+
+<p>```</p>
+
+<p>記事書いたらrake gen_deploy (generate と deploy同時にやる)</p>
+
+<p><code>
+rake gen_deploy
+</code></p>
+
+<p>記事書いて生成してgen_deploy</p>
+
+<p>サーバー建てて動的に変更確認することもできる</p>
+
+<p><code>
+rake preview
+open http://localhost:4000
+</code></p>
+
+<h2>とりあえずやったこと</h2>
+
+<p>テーマを入れ替えてみた</p>
+
+<p><a href="https://github.com/tommy351/Octopress-Theme-Slash" title="tommy351/Octopress-Theme-Slash">tommy351/Octopress-Theme-Slash</a></p>
+
+<h3>CoffeeScript</h3>
+
+<p>```html</p>
+
+<script type="text/coffeescript" src='hoge.coffee'></script>
+
+
+<p>```</p>
+
+<p>とかやりたかったのでJSをmy以下に突っ込んでsource/_include/head.htmlにパス追加。myってのは酷いのであとでどっかに動かす。</p>
+
+<p>```</p>
+
+<script src="/my/coffee-script.js"></script>
+
+
+<script src="/my/underscore-min.js"></script>
+
+
+<script src="/my/backbone-min.js"></script>
+
+
+<script type='text/coffeescript' src="/my/main.coffee"></script>
+
+
+<p>```</p>
+
+<p>JS自由に読み込めるのいいですね、危ないけど</p>
+
+<h2>おまけ</h2>
+
+<p>coffee-scriptとBackboneで無理やりpushstateさせるプラギン書いてみた。ヘッダで読みこめば動く。</p>
+
+<p>```coffeescript
+@App =
+  View: {}
+@app = null</p>
+
+<p>class App.Workspace extends Backbone.Router
+  routes:</p>
+
+<pre><code>'': 'index'
+'blog/:year/:month/:day/:title/': 'entry'
+'blog/archives': 'archives'
+'blog/categories/:tag/': 'category'
+</code></pre>
+
+<p>  constructor: -></p>
+
+<pre><code>super
+@header = new App.View.Header
+@initialized = false
+</code></pre>
+
+<p>  index: =></p>
+
+<pre><code>unless @initialized
+  @updateContent location.pathname
+else
+  @makeArticles()
+  @initialized = true
+</code></pre>
+
+<p>  category: (tag) =></p>
+
+<pre><code>unless @initialized
+  @updateContent location.pathname
+else
+  @makeArticles()
+  @initialized = true
+</code></pre>
+
+<p>  entry: (year, month, day, title) =></p>
+
+<pre><code>unless @initialized
+  url = "/blog/#{year}/#{month}/#{day}/#{title}/"
+  @updateContent url
+else
+  @makeArticles()
+  @initialized = true
+</code></pre>
+
+<p>  archives: =></p>
+
+<pre><code>unless @initialized
+  @updateContent '/blog/archives'
+else
+  @makeArticles()
+  @initialized = true
+</code></pre>
+
+<p>  makeArticles: -></p>
+
+<pre><code>@articles = $('article.post').map (index, el) =&gt;
+  new App.View.Article el: el
+</code></pre>
+
+<p>  updateContent: (url) -></p>
+
+<pre><code>$.get url, (data) =&gt;
+  html = $('&lt;div&gt;').html(data).find('#content').html()
+  $('#content').html html
+  @makeArticles()
+</code></pre>
+
+<p>class App.View.Header extends Backbone.View
+  el: '#header'
+  events:</p>
+
+<pre><code>'click h1 &gt; a': 'index'
+"click a[href='/']": 'index'
+"click a[href='/blog/archives']": 'toArchives'
+</code></pre>
+
+<p>  toArchives: (event) =></p>
+
+<pre><code>event.preventDefault()
+app.navigate 'blog/archives', trigger: true
+</code></pre>
+
+<p>  index: (event) =></p>
+
+<pre><code>event.preventDefault()
+app.navigate '', trigger: true
+</code></pre>
+
+<p>class App.View.Article extends Backbone.View
+  events:</p>
+
+<pre><code>'click h1.title a': 'toEntry'
+"click a.category": 'toCategory'
+</code></pre>
+
+<p>  toEntry: (event, el) =></p>
+
+<pre><code>event.preventDefault()
+href = @$el.find('h1.title &gt; a').attr('href')
+app.navigate href.substr(1), trigger: true
+</code></pre>
+
+<p>  toCategory: (event, el) =></p>
+
+<pre><code>console.log arguments...
+event.preventDefault()
+href = @$(event.target).attr('href')
+app.navigate href.substr(1), trigger: true
+</code></pre>
+
+<p>$ =>
+  @app = new App.Workspace()
+  Backbone.history.start pushState: true
+```</p>
+
+<h2>テーマの作り方</h2>
+
+<p>あとで書く。よくわからない。</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | mizchi.github.com]]></title>
   <link href="http://mizchi.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://mizchi.github.com/"/>
-  <updated>2012-09-22T16:24:43+09:00</updated>
+  <updated>2012-09-22T16:36:53+09:00</updated>
   <id>http://mizchi.github.com/</id>
   <author>
     <name><![CDATA[mizchi]]></name>
@@ -216,9 +216,12 @@ else
 <p>  updateContent: (url) -></p>
 
 <pre><code>$.get url, (data) =&gt;
-  html = $('&lt;div&gt;').html(data).find('#content').html()
+  $el = $('&lt;div&gt;').html(data)
+  html = $el.find('#content').html()
   $('#content').html html
-  @makeArticles()
+
+  title = $el.find('title').text()
+  $('title').html title
 </code></pre>
 
 <p>class App.View.Header extends Backbone.View

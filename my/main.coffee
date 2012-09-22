@@ -49,8 +49,12 @@ class App.Workspace extends Backbone.Router
 
   updateContent: (url) ->
     $.get url, (data) =>
-      html = $('<div>').html(data).find('#content').html()
+      $el = $('<div>').html(data)
+      html = $el.find('#content').html()
       $('#content').html html
+
+      title = $el.find('title').text()
+      $('title').html title
       @makeArticles()
 
 class App.View.Header extends Backbone.View

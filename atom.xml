@@ -4,7 +4,7 @@
   <title><![CDATA[mizchi.github.com]]></title>
   <link href="http://mizchi.github.com/atom.xml" rel="self"/>
   <link href="http://mizchi.github.com/"/>
-  <updated>2012-09-22T16:36:53+09:00</updated>
+  <updated>2012-09-23T22:16:21+09:00</updated>
   <id>http://mizchi.github.com/</id>
   <author>
     <name><![CDATA[mizchi]]></name>
@@ -12,6 +12,362 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressテーマの作り方]]></title>
+    <link href="http://mizchi.github.com/blog/2012/09/23/octopress-temafalsezuo-rifang/"/>
+    <updated>2012-09-23T21:07:00+09:00</updated>
+    <id>http://mizchi.github.com/blog/2012/09/23/octopress-temafalsezuo-rifang</id>
+    <content type="html"><![CDATA[<h2>ディレクトリ構成</h2>
+
+<p>.themes 以下に掘ったディレクトリに対して、</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake install['テーマ名']</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると .themes/hogehoge 以下の内容が現在のディレクトリに上書きされる</p>
+
+<p>たとえばこれは、ほぼslashテーマのクローンだが</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>.themes/mizchi/
+</span><span class='line'>├── README.md
+</span><span class='line'>├── sass
+</span><span class='line'>... ├── _includes
+</span><span class='line'>... (中略)
+</span><span class='line'>└── source
+</span><span class='line'>    ├── _includes
+</span><span class='line'>... (中略)
+</span><span class='line'>
+</span><span class='line'>16 directories, 76 files</span></code></pre></td></tr></table></div></figure>
+
+
+<p>sassとsourceが上書きされる</p>
+
+<h2>エントリポイント</h2>
+
+<p>たぶん source/_layout/default.html</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>
+</span><span class='line'><!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Octopressテーマの作り方 - mizchi.github.com</title>
+    <meta name="author" content="mizchi">
+
+    
+    <meta name="description" content="">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link href="http://mizchi.github.com/atom.xml" rel="alternate" title="mizchi.github.com" type="application/atom+xml">
+    <link rel="canonical" href="">
+    <link href="
+</span><span class='line'>  
+</span><span class='line'>/favicon.png" rel="shortcut icon">
+    <link href="
+</span><span class='line'>  
+</span><span class='line'>/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script src="
+</span><span class='line'>  
+</span><span class='line'>/javascripts/jquery-1.8.0.min.js"></script>
+    <script src="
+</span><span class='line'>  
+</span><span class='line'>/javascripts/coffee-script.js"></script>
+    <script src="
+</span><span class='line'>  
+</span><span class='line'>/javascripts/underscore-min.js"></script>
+    <script src="
+</span><span class='line'>  
+</span><span class='line'>/javascripts/backbone-min.js"></script>
+    <!-- <script type='text/coffeescript' src="
+</span><span class='line'>  
+</span><span class='line'>/javascripts/main.coffee"></script> &#8211;>
+    
+</head>
+</span><span class='line'>&lt;body&gt;
+</span><span class='line'>  &lt;header id=&#8221;header&#8221; class=&#8221;inner&#8221;&gt;
+</span><span class='line'>      <h1><a href="
+</span><span class='line'>  
+</span><span class='line'>/&#8221;>mizchi.github.com</a></h1>
+<nav id="main-nav"><ul class="main">
+    <li><a href="
+</span><span class='line'>  
+</span><span class='line'>/&#8221;>Blog</a></li>
+    <li><a href="
+</span><span class='line'>  
+</span><span class='line'>/blog/archives&#8221;>Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+    <div class="alignleft menu">
+        <a class="button">Menu</a>
+        <div class="container"><ul class="main">
+    <li><a href="
+</span><span class='line'>  
+</span><span class='line'>/&#8221;>Blog</a></li>
+    <li><a href="
+</span><span class='line'>  
+</span><span class='line'>/blog/archives&#8221;>Archives</a></li>
+</ul>
+</div>
+    </div>
+    <div class="alignright search">
+        <a class="button"></a>
+        <div class="container">
+            <form action="http://google.com/search" method="get">
+                <input type="text" name="q" results="0">
+                <input type="hidden" name="q" value="site:mizchi.github.com">
+            </form>
+        </div>
+    </div>
+</nav>
+<nav id="sub-nav" class="alignright">
+    <div class="social">
+        
+        
+        
+        
+        <a class="github" href="https://github.com/mizchi" title="GitHub">GitHub</a>
+        
+        
+        
+        
+        
+        <a class="rss" href="http://mizchi.github.com/atom.xml" title="RSS">RSS</a>
+        
+    </div>
+    <form class="search" action="http://google.com/search" method="get">
+        <input class="alignright" type="text" name="q" results="0">
+        <input type="hidden" name="q" value="site:mizchi.github.com">
+    </form>
+</nav>
+
+
+</span><span class='line'>  &lt;/header&gt;
+</span><span class='line'>
+</span><span class='line'>  
+</span><span class='line'>      
+</span><span class='line'>  
+</span><span class='line'>
+</span><span class='line'>  &lt;div id=&#8221;content&#8221; class=&#8221;inner&#8221;&gt;
+</span><span class='line'>      Liquid error: undefined method `gsub&#8217; for nil:NilClass
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;footer id=&#8221;footer&#8221; class=&#8221;inner&#8221;&gt;
+</span><span class='line'>      Copyright &copy; 2012
+
+    mizchi
+
+
+</span><span class='line'>  &lt;/footer&gt;
+</span><span class='line'>  
+</span><span class='line'>  <script src="
+</span><span class='line'>  
+</span><span class='line'>/javascripts/slash.js"></script>
+<script src="
+</span><span class='line'>  
+</span><span class='line'>/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+    $('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</span><span class='line'>&lt;/body&gt;
+</span><span class='line'>&lt;/html&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ページを作成する際は、yamlのメタ情報で展開するテンプレートを指定する。(defaultはたぶん指定しなかった時も展開されるんだろう)
+たとえばこのページのyamlはこうなっている</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>---
+</span><span class='line'>layout: post
+</span><span class='line'>title: "Octopressテーマの作り方"
+</span><span class='line'>date: 2012-09-23 21:07
+</span><span class='line'>comments: true
+</span><span class='line'>categories: 
+</span><span class='line'>---</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で、postは</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>---
+</span><span class='line'>layout: default
+</span><span class='line'>single: true
+</span><span class='line'>---
+</span><span class='line'>
+</span><span class='line'>&lt;article class="post"&gt;
+    <h1 class="title">Octopressテーマの作り方</h1>
+    <div class="entry-content"></div>
+
+
+<div class="meta">
+    <div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-23T21:07:00+09:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2012</time></div>
+    <div class="tags">
+
+</div>
+    
+</div>&lt;/article&gt;
+</span><span class='line'>
+</span><span class='line'>  <div class="share">
+    <div class="addthis_toolbox addthis_default_style ">
+    
+    
+    <a class="addthis_button_tweet"></a>
+    
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+</span><span class='line'>
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+
+
+<p>singleはなんだろう…　あとで調べる</p>
+
+<h2>include</h2>
+
+<p>includeされるテンプレートは_include以下におく。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>.themes/mizchi/source/_includes/
+</span><span class='line'>├── after_footer.html
+</span><span class='line'>├── archive_post.html
+</span><span class='line'>├── article.html
+</span><span class='line'>├── banner.html
+</span><span class='line'>├── custom
+</span><span class='line'>│   ├── after_footer.html
+</span><span class='line'>│   ├── category_feed.xml
+</span><span class='line'>│   ├── footer.html
+</span><span class='line'>│   ├── head.html
+</span><span class='line'>│   ├── header.html
+</span><span class='line'>│   └── navigation.html
+</span><span class='line'>├── disqus.html
+</span><span class='line'>├── fancybox.html
+</span><span class='line'>├── footer.html
+</span><span class='line'>├── google_analytics.html
+</span><span class='line'>├── head.html
+</span><span class='line'>├── header.html
+</span><span class='line'>├── navigation.html
+</span><span class='line'>└── post
+</span><span class='line'>    ├── author.html
+</span><span class='line'>    ├── categories.html
+</span><span class='line'>    ├── date.html
+</span><span class='line'>    ├── disqus_thread.html
+</span><span class='line'>    └── sharing.html
+</span><span class='line'>
+</span><span class='line'>2 directories, 22 files
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>まあ色々と入っているけど、includeされた順に追っていけばそんなに難しくない。あとはファイル名から適当に類推できる。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopress導入メモ]]></title>
@@ -361,7 +717,7 @@ githubドメインよい。</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[日本語で長めのテキストを書いてみるテスト]]></title>
+    <title type="html"><![CDATA[テスト]]></title>
     <link href="http://mizchi.github.com/blog/2012/09/22/test2/"/>
     <updated>2012-09-22T07:02:00+09:00</updated>
     <id>http://mizchi.github.com/blog/2012/09/22/test2</id>
@@ -369,29 +725,12 @@ githubドメインよい。</p>
 観自在菩薩行深般若波羅蜜多時、照見五蘊皆空、度一切苦厄。舎利子。色不異空、空不異色、色即是空、空即是色。受・想・行・識亦復如是。舎利子。是諸法空相、不生不滅、不垢不浄、不増不減。是故空中、無色、無受・想・行・識、無眼・耳・鼻・舌・身・意、無色・声・香・味・触・法。無眼界、乃至、無意識界。無無明、亦無無明尽、乃至、無老死、亦無老死尽。無苦・集・滅・道。無智亦無得。以無所得故、菩提薩埵、依般若波羅蜜多故、心無罣礙、無罣礙故、無有恐怖、遠離一切顛倒夢想、究竟涅槃。三世諸仏、依般若波羅蜜多故、得阿耨多羅三藐三菩提。故知、般若波羅蜜多、是大神呪、是大明呪、是無上呪、是無等等呪、能除一切苦、真実不虚。故説、般若波羅蜜多呪。
 即説呪曰、羯諦羯諦波羅羯諦波羅僧羯諦菩提薩婆訶。般若心経</p>
 
-<p>仏説摩訶般若波羅蜜多心経
-観自在菩薩行深般若波羅蜜多時、照見五蘊皆空、度一切苦厄。舎利子。色不異空、空不異色、色即是空、空即是色。受・想・行・識亦復如是。舎利子。是諸法空相、不生不滅、不垢不浄、不増不減。是故空中、無色、無受・想・行・識、無眼・耳・鼻・舌・身・意、無色・声・香・味・触・法。無眼界、乃至、無意識界。無無明、亦無無明尽、乃至、無老死、亦無老死尽。無苦・集・滅・道。無智亦無得。以無所得故、菩提薩埵、依般若波羅蜜多故、心無罣礙、無罣礙故、無有恐怖、遠離一切顛倒夢想、究竟涅槃。三世諸仏、依般若波羅蜜多故、得阿耨多羅三藐三菩提。故知、般若波羅蜜多、是大神呪、是大明呪、是無上呪、是無等等呪、能除一切苦、真実不虚。故説、般若波羅蜜多呪。
-即説呪曰、羯諦羯諦波羅羯諦波羅僧羯諦菩提薩婆訶。般若心経</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[test]]></title>
-    <link href="http://mizchi.github.com/blog/2012/09/22/test/"/>
-    <updated>2012-09-22T04:10:00+09:00</updated>
-    <id>http://mizchi.github.com/blog/2012/09/22/test</id>
-    <content type="html"><![CDATA[<p>日本語hogehoge</p>
-
-<script>
-console.log("hoge");
-</script>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">scirpt</span><span class="o">&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hoge&quot;</span><span class="p">)</span><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>仏説摩訶般若波羅蜜多心経
+</span><span class='line'>観自在菩薩行深般若波羅蜜多時、照見五蘊皆空、度一切苦厄。舎利子。色不異空、空不異色、色即是空、空即是色。受・想・行・識亦復如是。舎利子。是諸法空相、不生不滅、不垢不浄、不増不減。是故空中、無色、無受・想・行・識、無眼・耳・鼻・舌・身・意、無色・声・香・味・触・法。無眼界、乃至、無意識界。無無明、亦無無明尽、乃至、無老死、亦無老死尽。無苦・集・滅・道。無智亦無得。以無所得故、菩提薩埵、依般若波羅蜜多故、心無罣礙、無罣礙故、無有恐怖、遠離一切顛倒夢想、究竟涅槃。三世諸仏、依般若波羅蜜多故、得阿耨多羅三藐三菩提。故知、般若波羅蜜多、是大神呪、是大明呪、是無上呪、是無等等呪、能除一切苦、真実不虚。故説、般若波羅蜜多呪。
+</span><span class='line'>即説呪曰、羯諦羯諦波羅羯諦波羅僧羯諦菩提薩婆訶。般若心経</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>

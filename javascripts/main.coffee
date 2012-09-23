@@ -48,7 +48,8 @@ class App.Workspace extends Backbone.Router
       new App.View.Article el: el
 
   updateContent: (url) ->
-    $('#content').hide()
+    $('#content').html("<img src='/images/ajax-loader.gif'>")
+
     $.get url, (data) =>
       $el = $('<div>').html(data)
       html = $el.find('#content').html()

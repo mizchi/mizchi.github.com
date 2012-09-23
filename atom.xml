@@ -4,7 +4,7 @@
   <title><![CDATA[mizchi.github.com]]></title>
   <link href="http://mizchi.github.com/atom.xml" rel="self"/>
   <link href="http://mizchi.github.com/"/>
-  <updated>2012-09-23T22:16:21+09:00</updated>
+  <updated>2012-09-23T22:46:15+09:00</updated>
   <id>http://mizchi.github.com/</id>
   <author>
     <name><![CDATA[mizchi]]></name>
@@ -58,168 +58,6 @@
 
 <p>たぶん source/_layout/default.html</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>
-</span><span class='line'><!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Octopressテーマの作り方 - mizchi.github.com</title>
-    <meta name="author" content="mizchi">
-
-    
-    <meta name="description" content="">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <link href="http://mizchi.github.com/atom.xml" rel="alternate" title="mizchi.github.com" type="application/atom+xml">
-    <link rel="canonical" href="">
-    <link href="
-</span><span class='line'>  
-</span><span class='line'>/favicon.png" rel="shortcut icon">
-    <link href="
-</span><span class='line'>  
-</span><span class='line'>/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <script src="
-</span><span class='line'>  
-</span><span class='line'>/javascripts/jquery-1.8.0.min.js"></script>
-    <script src="
-</span><span class='line'>  
-</span><span class='line'>/javascripts/coffee-script.js"></script>
-    <script src="
-</span><span class='line'>  
-</span><span class='line'>/javascripts/underscore-min.js"></script>
-    <script src="
-</span><span class='line'>  
-</span><span class='line'>/javascripts/backbone-min.js"></script>
-    <!-- <script type='text/coffeescript' src="
-</span><span class='line'>  
-</span><span class='line'>/javascripts/main.coffee"></script> &#8211;>
-    
-</head>
-</span><span class='line'>&lt;body&gt;
-</span><span class='line'>  &lt;header id=&#8221;header&#8221; class=&#8221;inner&#8221;&gt;
-</span><span class='line'>      <h1><a href="
-</span><span class='line'>  
-</span><span class='line'>/&#8221;>mizchi.github.com</a></h1>
-<nav id="main-nav"><ul class="main">
-    <li><a href="
-</span><span class='line'>  
-</span><span class='line'>/&#8221;>Blog</a></li>
-    <li><a href="
-</span><span class='line'>  
-</span><span class='line'>/blog/archives&#8221;>Archives</a></li>
-</ul>
-</nav>
-<nav id="mobile-nav">
-    <div class="alignleft menu">
-        <a class="button">Menu</a>
-        <div class="container"><ul class="main">
-    <li><a href="
-</span><span class='line'>  
-</span><span class='line'>/&#8221;>Blog</a></li>
-    <li><a href="
-</span><span class='line'>  
-</span><span class='line'>/blog/archives&#8221;>Archives</a></li>
-</ul>
-</div>
-    </div>
-    <div class="alignright search">
-        <a class="button"></a>
-        <div class="container">
-            <form action="http://google.com/search" method="get">
-                <input type="text" name="q" results="0">
-                <input type="hidden" name="q" value="site:mizchi.github.com">
-            </form>
-        </div>
-    </div>
-</nav>
-<nav id="sub-nav" class="alignright">
-    <div class="social">
-        
-        
-        
-        
-        <a class="github" href="https://github.com/mizchi" title="GitHub">GitHub</a>
-        
-        
-        
-        
-        
-        <a class="rss" href="http://mizchi.github.com/atom.xml" title="RSS">RSS</a>
-        
-    </div>
-    <form class="search" action="http://google.com/search" method="get">
-        <input class="alignright" type="text" name="q" results="0">
-        <input type="hidden" name="q" value="site:mizchi.github.com">
-    </form>
-</nav>
-
-
-</span><span class='line'>  &lt;/header&gt;
-</span><span class='line'>
-</span><span class='line'>  
-</span><span class='line'>      
-</span><span class='line'>  
-</span><span class='line'>
-</span><span class='line'>  &lt;div id=&#8221;content&#8221; class=&#8221;inner&#8221;&gt;
-</span><span class='line'>      Liquid error: undefined method `gsub&#8217; for nil:NilClass
-</span><span class='line'>  &lt;/div&gt;
-</span><span class='line'>
-</span><span class='line'>  &lt;footer id=&#8221;footer&#8221; class=&#8221;inner&#8221;&gt;
-</span><span class='line'>      Copyright &copy; 2012
-
-    mizchi
-
-
-</span><span class='line'>  &lt;/footer&gt;
-</span><span class='line'>  
-</span><span class='line'>  <script src="
-</span><span class='line'>  
-</span><span class='line'>/javascripts/slash.js"></script>
-<script src="
-</span><span class='line'>  
-</span><span class='line'>/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-    $('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
-
-
-
-
-
-
-</span><span class='line'>&lt;/body&gt;
-</span><span class='line'>&lt;/html&gt;</span></code></pre></td></tr></table></div></figure>
-
-
 <p>ページを作成する際は、yamlのメタ情報で展開するテンプレートを指定する。(defaultはたぶん指定しなかった時も展開されるんだろう)
 たとえばこのページのyamlはこうなっている</p>
 
@@ -228,78 +66,19 @@
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>---
-</span><span class='line'>layout: post
+</pre></td><td class='code'><pre><code class=''><span class='line'>layout: post
 </span><span class='line'>title: "Octopressテーマの作り方"
 </span><span class='line'>date: 2012-09-23 21:07
 </span><span class='line'>comments: true
-</span><span class='line'>categories: 
-</span><span class='line'>---</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>categories: </span></code></pre></td></tr></table></div></figure>
 
 
 <p>で、postは</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>---
-</span><span class='line'>layout: default
-</span><span class='line'>single: true
-</span><span class='line'>---
-</span><span class='line'>
-</span><span class='line'>&lt;article class="post"&gt;
-    <h1 class="title">Octopressテーマの作り方</h1>
-    <div class="entry-content"></div>
-
-
-<div class="meta">
-    <div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-23T21:07:00+09:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2012</time></div>
-    <div class="tags">
-
-</div>
-    
-</div>&lt;/article&gt;
-</span><span class='line'>
-</span><span class='line'>  <div class="share">
-    <div class="addthis_toolbox addthis_default_style ">
-    
-    
-    <a class="addthis_button_tweet"></a>
-    
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-    </div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
-</div>
-
-</span><span class='line'>
-</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>layout: default
+</span><span class='line'>single: true</span></code></pre></td></tr></table></div></figure>
 
 
 <p>singleはなんだろう…　あとで調べる</p>
@@ -371,9 +150,9 @@
   
   <entry>
     <title type="html"><![CDATA[Octopress導入メモ]]></title>
-    <link href="http://mizchi.github.com/blog/2012/09/22/octopressdao-ru-memo/"/>
+    <link href="http://mizchi.github.com/blog/2012/09/22/octopress-memo/"/>
     <updated>2012-09-22T15:25:00+09:00</updated>
-    <id>http://mizchi.github.com/blog/2012/09/22/octopressdao-ru-memo</id>
+    <id>http://mizchi.github.com/blog/2012/09/22/octopress-memo</id>
     <content type="html"><![CDATA[<p>基本的には Deploying to Github Pages - Octopress http://octopress.org/docs/deploying/github/ を参考にしつつ</p>
 
 <h1>Octopress</h1>

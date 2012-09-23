@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | mizchi.github.com]]></title>
   <link href="http://mizchi.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://mizchi.github.com/"/>
-  <updated>2012-09-23T22:16:21+09:00</updated>
+  <updated>2012-09-23T22:46:15+09:00</updated>
   <id>http://mizchi.github.com/</id>
   <author>
     <name><![CDATA[mizchi]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Octopress導入メモ]]></title>
-    <link href="http://mizchi.github.com/blog/2012/09/22/octopressdao-ru-memo/"/>
+    <link href="http://mizchi.github.com/blog/2012/09/22/octopress-memo/"/>
     <updated>2012-09-22T15:25:00+09:00</updated>
-    <id>http://mizchi.github.com/blog/2012/09/22/octopressdao-ru-memo</id>
+    <id>http://mizchi.github.com/blog/2012/09/22/octopress-memo</id>
     <content type="html"><![CDATA[<p>基本的には Deploying to Github Pages - Octopress http://octopress.org/docs/deploying/github/ を参考にしつつ</p>
 
 <h1>Octopress</h1>

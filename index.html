@@ -619,7 +619,7 @@ underscore type definition — Gist https://gist.github.com/3831467</p>
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>追記</h2>
+<h2>追記: カリー化したかった</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -638,6 +638,9 @@ underscore type definition — Gist https://gist.github.com/3831467</p>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>// it doesnt work
 </span><span class='line'>Function.prototype.proc = function() {
 </span><span class='line'>  var args, target, v;
@@ -654,12 +657,11 @@ underscore type definition — Gist https://gist.github.com/3831467</p>
 </span><span class='line'>  = (a) =&gt; (b) =&gt; a * b.length;
 </span><span class='line'>
 </span><span class='line'>// it works
-</span><span class='line'>console.log(fuga(3)("dafa"))</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>console.log(fuga(3)("dafa"))
+</span><span class='line'>
+</span><span class='line'>// it doesnt work
+</span><span class='line'>console.log(fuga.proc(3, "dafa"))</span></code></pre></td></tr></table></div></figure>
 
-
-<p>// it doesnt work
-console.log(fuga.proc(3, &#8220;dafa&#8221;))
-&#8220;`</p>
 
 <p>var fuga: (number) => (string) => number</p>
 

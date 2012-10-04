@@ -4,7 +4,7 @@
   <title><![CDATA[mizchi.github.com]]></title>
   <link href="http://mizchi.github.com/atom.xml" rel="self"/>
   <link href="http://mizchi.github.com/"/>
-  <updated>2012-10-04T14:15:00+09:00</updated>
+  <updated>2012-10-04T14:16:26+09:00</updated>
   <id>http://mizchi.github.com/</id>
   <author>
     <name><![CDATA[mizchi]]></name>
@@ -71,42 +71,6 @@ coffee-scriptの超ゆるふわスタイルに慣れてると結構辛い感じ�
 </span><span class='line'>  console.log(i);
 </span><span class='line'>})</span></code></pre></td></tr></table></div></figure>
 
-
-<p>こんなふうに某関数型言語っぽく書くことも</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var fuga: (number) =&gt; (string) =&gt; number
-</span><span class='line'>  = (a) =&gt; (b) =&gt; a * b.length;
-</span><span class='line'>console.log(fuga(3)("dafa"))</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Function.prototype.proc = function() {
-</span><span class='line'>  var args, target, v;
-</span><span class='line'>  args = 1 &lt;= arguments.length ? __slice.call(arguments, 0) : [];
-</span><span class='line'>  target = this;
-</span><span class='line'>  while (v = args.shift()) {
-</span><span class='line'>    target = target(v);
-</span><span class='line'>  }
-</span><span class='line'>  return target;
-</span><span class='line'>};
-</span><span class='line'>console.log(fuga.proc(3, "dafa"))</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Function</p>
 
 <h2>補完</h2>
 

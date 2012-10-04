@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | mizchi.github.com]]></title>
   <link href="http://mizchi.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://mizchi.github.com/"/>
-  <updated>2012-09-23T22:46:15+09:00</updated>
+  <updated>2012-10-04T14:15:00+09:00</updated>
   <id>http://mizchi.github.com/</id>
   <author>
     <name><![CDATA[mizchi]]></name>
@@ -12,6 +12,108 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressテーマの作り方]]></title>
+    <link href="http://mizchi.github.com/blog/2012/09/23/octopress-temafalsezuo-rifang/"/>
+    <updated>2012-09-23T21:07:00+09:00</updated>
+    <id>http://mizchi.github.com/blog/2012/09/23/octopress-temafalsezuo-rifang</id>
+    <content type="html"><![CDATA[<h2>ディレクトリ構成</h2>
+
+<p>仕組みとしては超単純で、 .themes 以下に掘ったディレクトリに対して、</p>
+
+<p><code>
+rake install['テーマ名']
+</code></p>
+
+<p>すると .themes/hogehoge 以下の内容が現在のディレクトリに上書きされる。それだけ。</p>
+
+<p>実際に開発する場合は scss, source以下のファイルをpreview状態で編集して、最後にsourceとscssだけ抜いたディレクトリをコピーして終わり</p>
+
+<p>たとえばこれは、ほぼslashテーマのクローンだが</p>
+
+<p>```
+.themes/mizchi/
+├── README.md
+├── sass
+... ├── _includes
+... (中略)
+└── source</p>
+
+<pre><code>├── _includes
+</code></pre>
+
+<p>... (中略)</p>
+
+<p>16 directories, 76 files
+```</p>
+
+<p>sassとsourceが上書きされる</p>
+
+<h2>エントリポイント</h2>
+
+<p>たぶん source/_layout/default.html</p>
+
+<p>ページを作成する際は、yamlのメタ情報で展開するテンプレートを指定する。(defaultはたぶん指定しなかった時も展開されるんだろう)
+たとえばこのページのyamlはこうなっている</p>
+
+<p><code>
+layout: post
+title: "Octopressテーマの作り方"
+date: 2012-09-23 21:07
+comments: true
+categories:
+</code></p>
+
+<p>で、postは</p>
+
+<p><code>
+layout: default
+single: true
+</code></p>
+
+<p>singleはなんだろう…　あとで調べる</p>
+
+<h2>include</h2>
+
+<p>includeされるテンプレートは_include以下におく。</p>
+
+<p>```
+.themes/mizchi/source/_includes/
+├── after_footer.html
+├── archive_post.html
+├── article.html
+├── banner.html
+├── custom
+│   ├── after_footer.html
+│   ├── category_feed.xml
+│   ├── footer.html
+│   ├── head.html
+│   ├── header.html
+│   └── navigation.html
+├── disqus.html
+├── fancybox.html
+├── footer.html
+├── google_analytics.html
+├── head.html
+├── header.html
+├── navigation.html
+└── post</p>
+
+<pre><code>├── author.html
+├── categories.html
+├── date.html
+├── disqus_thread.html
+└── sharing.html
+</code></pre>
+
+<p>2 directories, 22 files</p>
+
+<p>```</p>
+
+<p>まあ色々と入っているけど、includeされた順に追っていけばそんなに難しくない。あとはファイル名から適当に類推できる。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopress導入メモ]]></title>

@@ -7,17 +7,8 @@
 	<meta name="author" content="mizchi">
 
 	
-	<meta name="description" content="ディレクトリ構成 .themes 以下に掘ったディレクトリに対して、 1
-rake install['テーマ名'] すると .themes/hogehoge 以下の内容が現在のディレクトリに上書きされる たとえばこれは、ほぼslashテーマのクローンだが 1
-2
-3
-4
-5
-6
-7
-8
-9
-10 &hellip;">
+	<meta name="description" content="ディレクトリ構成 仕組みとしては超単純で、 .themes 以下に掘ったディレクトリに対して、 1
+rake install['テーマ名'] すると .themes/hogehoge 以下の内容が現在のディレクトリに上書きされる。それだけ。 実際に開発する場合は scss, &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -85,17 +76,37 @@ rake install['テーマ名'] すると .themes/hogehoge 以下の内容が現在
 	
 		
 	
+<!--
+	<style>
+		#sidebar{
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			border:dotted 2px black ;
+		}
+	</style>
+	<div id='sidebar'>
+		<ul id='help'>
+			<li> 'j', next </li>
+			<li> 'k', prev </li>
+			<li> 'o', open </li>
+		</ul>
+	</div>
+-->
+
 	<div id="content" class="inner"><article class="post">
 	<h1 class="title">Octopressテーマの作り方</h1>
 	<div class="entry-content"><h2>ディレクトリ構成</h2>
 
-<p>.themes 以下に掘ったディレクトリに対して、</p>
+<p>仕組みとしては超単純で、 .themes 以下に掘ったディレクトリに対して、</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rake install['テーマ名']</span></code></pre></td></tr></table></div></figure>
 
 
-<p>すると .themes/hogehoge 以下の内容が現在のディレクトリに上書きされる</p>
+<p>すると .themes/hogehoge 以下の内容が現在のディレクトリに上書きされる。それだけ。</p>
+
+<p>実際に開発する場合は scss, source以下のファイルをpreview状態で編集して、最後にsourceとscssだけ抜いたディレクトリをコピーして終わり</p>
 
 <p>たとえばこれは、ほぼslashテーマのクローンだが</p>
 
@@ -233,6 +244,10 @@ rake install['テーマ名'] すると .themes/hogehoge 以下の内容が現在
 <time datetime="2012-09-23T21:07:00+09:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2012</time></div>
 	<div class="tags">
 
+
+	<a class='category' href='/blog/categories/octopress/'>octopress</a>
+
+
 </div>
 	
 </div></article>
@@ -263,6 +278,7 @@ rake install['テーマ名'] すると .themes/hogehoge 以下の内容が現在
 	$('.fancybox').fancybox();
 })(jQuery);
 </script> <!-- Delete or comment this line to disable Fancybox -->
+
 
 
 

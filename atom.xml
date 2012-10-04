@@ -4,7 +4,7 @@
   <title><![CDATA[mizchi.github.com]]></title>
   <link href="http://mizchi.github.com/atom.xml" rel="self"/>
   <link href="http://mizchi.github.com/"/>
-  <updated>2012-09-23T22:46:15+09:00</updated>
+  <updated>2012-10-04T14:15:00+09:00</updated>
   <id>http://mizchi.github.com/</id>
   <author>
     <name><![CDATA[mizchi]]></name>
@@ -14,19 +14,642 @@
 
   
   <entry>
+    <title type="html"><![CDATA[typescript感想 + underscoreを扱えるようにしてみた]]></title>
+    <link href="http://mizchi.github.com/blog/2012/10/04/typescript-first-coding/"/>
+    <updated>2012-10-04T14:11:00+09:00</updated>
+    <id>http://mizchi.github.com/blog/2012/10/04/typescript-first-coding</id>
+    <content type="html"><![CDATA[<p>主に僕が一番使っているcoffee-scriptとの比較</p>
+
+<h2>書き味</h2>
+
+<p>構文の硬さがJavaが10 Python6 Rubyが3という記事をどっかで見たけど、同じように当てはめると、JS8 typescript6 coffee2という感じ。
+coffee-scriptの超ゆるふわスタイルに慣れてると結構辛い感じはあるが、自分多分Coffeeについてある程度極まってる感じなので、あんまり比較しないほうがよさそう。
+高階関数(後述)が簡単に定義できるのでJS特有のパラダイムには素直に応えられる。</p>
+
+<p>&#8221;&#8221;&#8221; multiline text &#8220;&#8221;&#8221; がない
+デフォルト引数がない</p>
+
+<h2>型アノテーション</h2>
+
+<p>クラス志向というよりかはインターフェース志向？Golangっぽさも若干感じる。とりあえずJSの邪魔をしないanyが便利。</p>
+
+<h2>JavaScriptのスーパーセット</h2>
+
+<p>CoffeeScriptの辛かった点である、「jsコピペしてすぐ動かない」問題が解決した。
+とりあえずコピペしてから徐々に置き換えるという段階を踏める。</p>
+
+<h2>末尾セミコロン</h2>
+
+<p>JSと同じような扱い。classフィールドでは;なしだと構文解析されない。基本末尾セミコロン嫌いなので可能な限り省略して書いてみたが、結局必要そう…</p>
+
+<h2>Lambda</h2>
+
+<p>結局自分はfunctionと書きたくなくてcoffeescriptを使ってるフシがあるのだけど、どのぐらい省略できるか調べてみた。</p>
+
+<p>自分自身を返す f(x) = x はこう書ける</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(i) =&gt; {return i}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ブロックだと複数行書けるが、returnが必須</p>
+
+<p>もしくはブロック省略して</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(i) =&gt; i</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こちらはreturnが要らない</p>
+
+<p>CoffeeScriptと違って 引数なしの()は省略できない</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[1,2,3].forEach((i) =&gt; {
+</span><span class='line'>  console.log(i);
+</span><span class='line'>})</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんなふうに某関数型言語っぽく書くことも</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var fuga: (number) =&gt; (string) =&gt; number
+</span><span class='line'>  = (a) =&gt; (b) =&gt; a * b.length;
+</span><span class='line'>console.log(fuga(3)("dafa"))</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Function.prototype.proc = function() {
+</span><span class='line'>  var args, target, v;
+</span><span class='line'>  args = 1 &lt;= arguments.length ? __slice.call(arguments, 0) : [];
+</span><span class='line'>  target = this;
+</span><span class='line'>  while (v = args.shift()) {
+</span><span class='line'>    target = target(v);
+</span><span class='line'>  }
+</span><span class='line'>  return target;
+</span><span class='line'>};
+</span><span class='line'>console.log(fuga.proc(3, "dafa"))</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Function</p>
+
+<h2>補完</h2>
+
+<p>宗教上の理由(一方が好きというかは一方が嫌い)でVSが使えないのだが、SublimeTextで書いていたが補完はなかった。
+まあ簡単そうなのでそのうち誰かが作るだろう。</p>
+
+<h2>instance</h2>
+
+<p>公式リポジトリのサンプルに型ファイル情報が少しついてる</p>
+
+<ul>
+<li>express.d.ts</li>
+<li>jquery.d.ts</li>
+<li>jqueryui.d.ts</li>
+<li>node.d.ts</li>
+</ul>
+
+
+<p>todomvcにはBackboneモジュールに対して型アノテーションを追加していて参考になる。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>declare module Backbone {
+</span><span class='line'>    export class Model {
+</span><span class='line'>        constructor (attr? , opts? );
+</span><span class='line'>        get(name: string): any;
+</span><span class='line'>        set(name: string, val: any): void;
+</span><span class='line'>        set(obj: any): void;
+</span><span class='line'>        save(attr? , opts? ): void;
+</span><span class='line'>        destroy(): void;
+</span><span class='line'>        bind(ev: string, f: Function, ctx?: any): void;
+</span><span class='line'>        toJSON(): any;
+</span><span class='line'>    }
+</span><span class='line'>    export class Collection {
+</span><span class='line'>        constructor (models? , opts? );
+</span><span class='line'>        bind(ev: string, f: Function, ctx?: any): void;
+</span><span class='line'>        collection: Model;
+</span><span class='line'>        length: number;
+</span><span class='line'>        create(attrs, opts? ): Collection;
+</span><span class='line'>        each(f: (elem: any) =&gt; void ): void;
+</span><span class='line'>        fetch(opts?: any): void;
+</span><span class='line'>        last(): any;
+</span><span class='line'>        last(n: number): any[];
+</span><span class='line'>        filter(f: (elem: any) =&gt; any): Collection;
+</span><span class='line'>        without(...values: any[]): Collection;
+</span><span class='line'>    }
+</span><span class='line'>    export class View {
+</span><span class='line'>        constructor (options? );
+</span><span class='line'>        $(selector: string): any;
+</span><span class='line'>        el: HTMLElement;
+</span><span class='line'>        $el: any;
+</span><span class='line'>        model: Model;
+</span><span class='line'>        remove(): void;
+</span><span class='line'>        delegateEvents: any;
+</span><span class='line'>        make(tagName: string, attrs? , opts? ): View;
+</span><span class='line'>        setElement(element: HTMLElement, delegate?: bool): void;
+</span><span class='line'>        tagName: string;
+</span><span class='line'>        events: any;
+</span><span class='line'>
+</span><span class='line'>        static extend: any;
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>underscoreに型アノテーションつけてみた</h2>
+
+<p>練習がてらやってみた</p>
+
+<h3>クライアント</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>///&lt;reference path='underscore.d.ts'/&gt;
+</span><span class='line'>declare var _ :underscore;</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>サーバー(Node)</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>///&lt;reference path='node.d.ts'/&gt;
+</span><span class='line'>///&lt;reference path='underscore.d.ts'/&gt;
+</span><span class='line'>var _ : underscore = require('./underscore-min')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ドキュメントみながら脳みそ止めて適当に作ったのでテストはしてないがひと通り動くはず。</p>
+
+<p>underscore.d.ts</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>interface underscore {
+</span><span class='line'>  //collections
+</span><span class='line'>  each(obj:any, f: Function): void;
+</span><span class='line'>  each(obj:any, f: Function, context:any): void;
+</span><span class='line'>  forEach(obj:any, f: Function): void;
+</span><span class='line'>  forEach(obj:any, f: Function, context:any): void;
+</span><span class='line'>
+</span><span class='line'>  map(obj:any, f: Function): any[];
+</span><span class='line'>  map(obj:any, f: Function, context:any): any[];
+</span><span class='line'>  collect(obj:any, f: Function): any[];
+</span><span class='line'>  collect(obj:any, f: Function, context:any): any[];
+</span><span class='line'>
+</span><span class='line'>  reduce(obj:any, f: Function, memo:any): any;
+</span><span class='line'>  reduce(obj:any, f: Function, memo:any, context:any): any;
+</span><span class='line'>  inject(obj:any, f: Function, memo:any): any;
+</span><span class='line'>  inject(obj:any, f: Function, memo:any, context:any): any;
+</span><span class='line'>  foldl(obj:any, f: Function, memo:any): any;
+</span><span class='line'>  foldl(obj:any, f: Function, memo:any, context:any): any;
+</span><span class='line'>
+</span><span class='line'>  reduceRight(obj:any, f: Function, memo:any): any;
+</span><span class='line'>  reduceRight(obj:any, f: Function, memo:any, context:any): any;
+</span><span class='line'>  foldr(obj:any, f: Function, memo:any): any;
+</span><span class='line'>  foldr(obj:any, f: Function, memo:any, context:any): any;
+</span><span class='line'>
+</span><span class='line'>  find(obj:any, f: Function): any;
+</span><span class='line'>  find(obj:any, f: Function, context:any): any;
+</span><span class='line'>  detect(obj:any, f: Function): any;
+</span><span class='line'>  detect(obj:any, f: Function, context:any): any;
+</span><span class='line'>
+</span><span class='line'>  reject(obj:any, f: Function): any[];
+</span><span class='line'>  reject(obj:any, f: Function, context:any): any[];
+</span><span class='line'>
+</span><span class='line'>  filter(obj:any, f: Function): any[];
+</span><span class='line'>  filter(obj:any, f: Function, context:any): any[];
+</span><span class='line'>  select(obj:any, f: Function): any[];
+</span><span class='line'>  select(obj:any, f: Function, context:any): any[];
+</span><span class='line'>
+</span><span class='line'>  all(obj:any, f: Function): bool;
+</span><span class='line'>  all(obj:any, f: Function, context:any): bool;
+</span><span class='line'>  every(obj:any, f: Function): bool;
+</span><span class='line'>  every(obj:any, f: Function, context:any): bool;
+</span><span class='line'>
+</span><span class='line'>  any(obj:any): bool;
+</span><span class='line'>  any(obj:any, f: Function): bool;
+</span><span class='line'>  any(obj:any, f: Function, context:any): bool;
+</span><span class='line'>  some(obj:any): bool;
+</span><span class='line'>  some(obj:any, f: Function): bool;
+</span><span class='line'>  some(obj:any, f: Function, context:any): bool;
+</span><span class='line'>
+</span><span class='line'>  include(obj:any, f: Function): bool;
+</span><span class='line'>  contains(obj:any, f: Function): bool;
+</span><span class='line'>
+</span><span class='line'>  invoke(obj:any, f: Function): any[];
+</span><span class='line'>  invoke(obj:any, f: Function, args:any[]): any[];
+</span><span class='line'>
+</span><span class='line'>  pluck(obj:any, prop: string): any[];
+</span><span class='line'>
+</span><span class='line'>  max(obj:number[]): number;
+</span><span class='line'>  max(obj:number[], context:any): number;
+</span><span class='line'>
+</span><span class='line'>  min(obj:number[]): number;
+</span><span class='line'>  min(obj:number[], context:any): number;
+</span><span class='line'>
+</span><span class='line'>  sortBy(obj:any, f: Function): any[];
+</span><span class='line'>  sortBy(obj:any, f: Function, context:any): any[];
+</span><span class='line'>
+</span><span class='line'>  groupBy(obj:any, f: Function): any[];
+</span><span class='line'>
+</span><span class='line'>  sortedIndex(obj:any, f: Function): any[];
+</span><span class='line'>  sortedIndex(obj:any, f: Function, iter:Function): any[];
+</span><span class='line'>
+</span><span class='line'>  shuffle(obj:any[]): any[];
+</span><span class='line'>  toArray(obj:any[]): any[];
+</span><span class='line'>  size(obj:any[]): number;
+</span><span class='line'>
+</span><span class='line'>  //array
+</span><span class='line'>  first(obj: any[]): any;
+</span><span class='line'>  head(obj: any[]): any;
+</span><span class='line'>
+</span><span class='line'>  last(obj: any[]): any;
+</span><span class='line'>
+</span><span class='line'>  rest(obj: any[]): any[];
+</span><span class='line'>  tail(obj: any[]): any[];
+</span><span class='line'>
+</span><span class='line'>  compact(obj:any[]): any[];
+</span><span class='line'>
+</span><span class='line'>  flatten(obj:any[]): any[];
+</span><span class='line'>  flatten(obj:any[], shallow:number): any[];
+</span><span class='line'>
+</span><span class='line'>  without(obj:any[]): any[];
+</span><span class='line'>  intersection(...obj:any[]): any[];
+</span><span class='line'>  difference(...obj:any[]): any[];
+</span><span class='line'>
+</span><span class='line'>  uniq(obj:any[]): any[];
+</span><span class='line'>  unique(obj:any[]): any[];
+</span><span class='line'>
+</span><span class='line'>  zip(...obj:any[]): any[];
+</span><span class='line'>  indexOf(obj:any[], val:any): any;
+</span><span class='line'>  range(stop:number): number[];
+</span><span class='line'>  range(start:number, stop:number): number[];
+</span><span class='line'>  range(start:number, stop:number, step:number): number[];
+</span><span class='line'>
+</span><span class='line'>  //object
+</span><span class='line'>  keys(obj:any): string[];
+</span><span class='line'>  values(obj:any): any[];
+</span><span class='line'>  functions(obj:any): string[];
+</span><span class='line'>  extend(obj:any, ...sources:any[]): any;
+</span><span class='line'>  pick(obj:any, ...keys:string[]): any;
+</span><span class='line'>  defaults(obj:any, ...defaults:any[]): any;
+</span><span class='line'>  clone(obj:any): any;
+</span><span class='line'>  tap(obj:any, intercepter:Function): any;
+</span><span class='line'>  has(obj:any, key:string): bool;
+</span><span class='line'>
+</span><span class='line'>  //functions
+</span><span class='line'>  bind(f:Function, obj:Object):void;
+</span><span class='line'>  bind(f:Function, obj:Object, ...args:string[]):void;
+</span><span class='line'>  bindAll(obj:Object, ...methodNames:string[]):void;
+</span><span class='line'>  memoize(f:Function):any;
+</span><span class='line'>  memoize(f:Function, ...hashFunctions:any[]):any;
+</span><span class='line'>
+</span><span class='line'>  delay(f:Function, wait:number):any;
+</span><span class='line'>  delay(f:Function, wait:number, ...arguments:any[]):any;
+</span><span class='line'>  defer(f:Function):any;
+</span><span class='line'>  defer(f:Function, ...arguments:any[]):any;
+</span><span class='line'>  throttle(f:Function, wait:number):any;
+</span><span class='line'>  debounce(f:Function, wait:number):any;
+</span><span class='line'>  debounce(f:Function, wait:number, ...immediate:any[]):any;
+</span><span class='line'>  once(f:Function):any;
+</span><span class='line'>  after(count:number, f:Function):any;
+</span><span class='line'>  wrap(f:Function, wrapper:Function):any;
+</span><span class='line'>  compose(...fs:Function[]):Function;
+</span><span class='line'>
+</span><span class='line'>  //isX
+</span><span class='line'>  isEqual(obj:any, other:any): bool;
+</span><span class='line'>  isEmpty(obj:any): bool;
+</span><span class='line'>  isElement(obj:any): bool;
+</span><span class='line'>  isArray(obj:any): bool;
+</span><span class='line'>  isObject(obj:any): bool;
+</span><span class='line'>  isArguments(obj:any): bool;
+</span><span class='line'>  isFunction(obj:any): bool;
+</span><span class='line'>  isString(obj:any): bool;
+</span><span class='line'>  isNumber(obj:any): bool;
+</span><span class='line'>  isFinite(obj:any): bool;
+</span><span class='line'>  isBoolean(obj:any): bool;
+</span><span class='line'>  isDate(obj:any): bool;
+</span><span class='line'>  isRegExp(obj:any): bool;
+</span><span class='line'>  isNaN(obj:any): bool;
+</span><span class='line'>  isNull(obj:any): bool;
+</span><span class='line'>  isUndefined(obj:any): bool;
+</span><span class='line'>
+</span><span class='line'>  //utility
+</span><span class='line'>  noConflict():bool;
+</span><span class='line'>  identity(x:any):any;
+</span><span class='line'>  times(n:number, f:Function):void;
+</span><span class='line'>  mixin(obj:any):void;
+</span><span class='line'>  uniqueId(prefix:string[]): string;
+</span><span class='line'>  escape(str:string): string;
+</span><span class='line'>  result(obj:any, key:string): any;
+</span><span class='line'>  template(template:string, bindings:any): string;
+</span><span class='line'>
+</span><span class='line'>  //chaining
+</span><span class='line'>  chain(obj:any):any;
+</span><span class='line'>  //value is useless
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>追記</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// it doesnt work
+</span><span class='line'>Function.prototype.proc = function() {
+</span><span class='line'>  var args, target, v;
+</span><span class='line'>  var __slice = [].slice;
+</span><span class='line'>  args = 1 &lt;= arguments.length ? __slice.call(arguments, 0) : [];
+</span><span class='line'>  target = this;
+</span><span class='line'>  while (v = args.shift()) {
+</span><span class='line'>    target = target(v);
+</span><span class='line'>  }
+</span><span class='line'>  return target;
+</span><span class='line'>};
+</span><span class='line'>
+</span><span class='line'>var fuga: (number) =&gt; (string) =&gt; number
+</span><span class='line'>  = (a) =&gt; (b) =&gt; a * b.length;
+</span><span class='line'>
+</span><span class='line'>// it works
+</span><span class='line'>console.log(fuga(3)("dafa"))</span></code></pre></td></tr></table></div></figure>
+
+
+<p>// it doesnt work
+console.log(fuga.proc(3, &#8220;dafa&#8221;))
+&#8220;`</p>
+
+<p>var fuga: (number) => (string) => number</p>
+
+<p>なんていうかっこいい型定義ができるんだからcurry化したいなーと思っていじってたんだけど、Function型定義がprocを認識しない。
+どうにかしてdeclareすればできるのかと思ったんだけどよくわからない。誰かタスケテほしい。</p>
+
+<p>こういうことをしたかったんだけど</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[test_game]]></title>
+    <link href="http://mizchi.github.com/blog/2012/10/01/test-game/"/>
+    <updated>2012-10-01T21:27:00+09:00</updated>
+    <id>http://mizchi.github.com/blog/2012/10/01/test-game</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[memo2]]></title>
+    <link href="http://mizchi.github.com/blog/2012/09/24/memo2/"/>
+    <updated>2012-09-24T15:50:00+09:00</updated>
+    <id>http://mizchi.github.com/blog/2012/09/24/memo2</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Octopressテーマの作り方]]></title>
     <link href="http://mizchi.github.com/blog/2012/09/23/octopress-temafalsezuo-rifang/"/>
     <updated>2012-09-23T21:07:00+09:00</updated>
     <id>http://mizchi.github.com/blog/2012/09/23/octopress-temafalsezuo-rifang</id>
     <content type="html"><![CDATA[<h2>ディレクトリ構成</h2>
 
-<p>.themes 以下に掘ったディレクトリに対して、</p>
+<p>仕組みとしては超単純で、 .themes 以下に掘ったディレクトリに対して、</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rake install['テーマ名']</span></code></pre></td></tr></table></div></figure>
 
 
-<p>すると .themes/hogehoge 以下の内容が現在のディレクトリに上書きされる</p>
+<p>すると .themes/hogehoge 以下の内容が現在のディレクトリに上書きされる。それだけ。</p>
+
+<p>実際に開発する場合は scss, source以下のファイルをpreview状態で編集して、最後にsourceとscssだけ抜いたディレクトリをコピーして終わり</p>
 
 <p>たとえばこれは、ほぼslashテーマのクローンだが</p>
 
